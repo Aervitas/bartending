@@ -1,6 +1,8 @@
 import VideoThumb from "@/public/images/hero-image-01.jpg";
 import ModalVideo from "@/components/modal-video";
 import Logo from "./ui/logo";
+import Link from "next/link";
+
 export default function HeroHome() {
   return (
     // Set a soft cream background
@@ -38,7 +40,9 @@ export default function HeroHome() {
                     href="#0"
                   >
                     <span className="relative inline-flex items-center">
-                      Get a Quote
+                      <Link href="/quote">
+                        Get a Quote
+                      </Link>
                       <span className="ml-1 tracking-normal text-white/50 transition-transform group-hover:translate-x-0.5">
                         -&gt;
                       </span>

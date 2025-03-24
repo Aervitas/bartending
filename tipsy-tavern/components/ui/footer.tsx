@@ -155,7 +155,7 @@ export default function Footer() {
             </div>
             <div className="text-sm">
               <p className="mb-3 text-[#3F3F3F]/70">
-                tipsytavernco.com
+                tipsytavernbartending.com
                 <span className="text-[#4A4A4A]"> · </span>
                 <a
                   className="transition text-[#3F3F3F]/70 hover:text-[#697F6A]"

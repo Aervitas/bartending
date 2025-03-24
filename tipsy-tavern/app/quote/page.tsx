@@ -6,6 +6,7 @@ import PageTransition from "@/components/page-transition";
 import emailjs from 'emailjs-com';
 import { useRef, useState } from "react";
 import { error } from "console";
+import Footer from "@/components/ui/footer";
 
 export default function Quote() {
 
@@ -21,7 +22,7 @@ export default function Quote() {
       'service_43ddtpr',
       'template_1t2zv3y',
       formRef.current,
-      'KypDjX01_HFXGZEWC'
+      'llFHCUOYDW5GRbet6'
     )
     .then((result) => {
       console.log(result.text);
@@ -151,6 +152,8 @@ export default function Quote() {
           </div>
         </div>
       </section>
+      <Footer />
     </PageTransition>
+
   );
 }

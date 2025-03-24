@@ -1,4 +1,4 @@
-import VideoThumb from "@/public/images/hero-image-01.jpg";
+import VideoThumb from "@/public/images/bartendingbg.webp";
 import ModalVideo from "@/components/modal-video";
 import Logo from "./ui/logo";
 import Link from "next/link";

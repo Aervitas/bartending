@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import type { StaticImageData } from "next/image";
 import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
 import Image from "next/image";
@@ -28,6 +28,67 @@ export default function ModalVideo({
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  // Store intrinsic video dimensions once metadata is loaded
+  const [videoDimensions, setVideoDimensions] = useState({
+    width: 0,
+    height: 0,
+  });
+
+  // Computed dimensions after applying mobile scaling logic
+  const [computedDimensions, setComputedDimensions] = useState({
+    width: videoWidth,
+    height: videoHeight,
+  });
+
+  // Update video dimensions when metadata is loaded
+  const setViewport = () => {
+    if (videoRef.current) {
+      const { videoWidth: intrinsicWidth, videoHeight: intrinsicHeight } =
+        videoRef.current;
+      setVideoDimensions({
+        width: intrinsicWidth,
+        height: intrinsicHeight,
+      });
+    }
+  };
+
+  // Compute dynamic dimensions based on the viewport.
+  // This effect runs when videoDimensions change or on window resize.
+  useEffect(() => {
+    const computeDimensions = () => {
+      // If no metadata yet, fallback to provided props.
+      if (!videoDimensions.width || !videoDimensions.height) {
+        setComputedDimensions({
+          width: videoWidth,
+          height: videoHeight,
+        });
+        return;
+      }
+
+      // Scale the video dimensions down to a maximum of 90% of the viewport
+      const maxWidth = window.innerWidth * 0.9;
+      const maxHeight = window.innerHeight * 0.9;
+
+      const widthScale = maxWidth / videoDimensions.width;
+      const heightScale = maxHeight / videoDimensions.height;
+
+      // Use the smallest scale factor to ensure the video fits within the viewport.
+      const scale = Math.min(1, widthScale, heightScale);
+
+      setComputedDimensions({
+        width: videoDimensions.width * scale,
+        height: videoDimensions.height * scale,
+      });
+    };
+
+    // Compute on initial load and whenever dimensions change.
+    computeDimensions();
+
+    // Recompute dimensions on window resize.
+    window.addEventListener("resize", computeDimensions);
+    return () => window.removeEventListener("resize", computeDimensions);
+  }, [videoDimensions, videoWidth, videoHeight]);
+
   return (
     <div className="relative">
       {/* Secondary illustration */}
@@ -47,9 +108,7 @@ export default function ModalVideo({
       {/* Video thumbnail */}
       <button
         className="group relative flex items-center justify-center rounded-2xl focus:outline-none focus-visible:ring focus-visible:ring-indigo-200"
-        onClick={() => {
-          setModalOpen(true);
-        }}
+        onClick={() => setModalOpen(true)}
         aria-label="Watch the video"
         data-aos="fade-up"
         data-aos-delay={200}
@@ -96,7 +155,7 @@ export default function ModalVideo({
             <span className="text-sm font-medium leading-tight text-gray-300">
               Watch Demo
               <span className="text-gray-600"> - </span>
-              3:47
+              0:32
             </span>
           </span>
         </span>
@@ -116,12 +175,18 @@ export default function ModalVideo({
           <div className="mx-auto flex h-full max-w-6xl items-center">
             <DialogPanel
               transition
-              className="aspect-video max-h-full w-full overflow-hidden rounded-2xl bg-black shadow-2xl duration-300 ease-out data-[closed]:scale-95 data-[closed]:opacity-0"
+              // Apply dynamic dimensions computed from the video size and viewport
+              style={{
+                width: computedDimensions.width,
+                height: computedDimensions.height,
+              }}
+              className="max-h-full w-full overflow-hidden rounded-2xl bg-black shadow-2xl duration-300 ease-out data-[closed]:scale-95 data-[closed]:opacity-0"
             >
               <video
                 ref={videoRef}
-                width={videoWidth}
-                height={videoHeight}
+                onLoadedMetadata={setViewport}
+                playsInline
+                autoPlay
                 loop
                 controls
               >

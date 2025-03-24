@@ -7,6 +7,7 @@ import Hero from "@/components/hero-home";
 import Features from "@/components/features";
 import Testimonials from "@/components/testimonials";
 import Logo from "@/components/ui/logo";
+import Footer from "@/components/ui/footer";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <Hero />
       <Features />
       <Testimonials />
+      
     </>
   );
 }

@@ -68,7 +68,7 @@ export default function Header() {
             </li>
             <li>
               <Link
-                href="/signup"
+                href="/FAQ"
                 className="btn-sm rounded bg-[#697F6A] px-10 py-[5px] text-white transition-colors hover:bg-[#4D6451]"
               >
                 FAQ

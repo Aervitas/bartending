@@ -152,7 +152,6 @@ export default function Quote() {
           </div>
         </div>
       </section>
-      <Footer />
     </PageTransition>
 
   );

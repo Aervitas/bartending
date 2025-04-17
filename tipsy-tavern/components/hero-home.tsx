@@ -6,9 +6,11 @@ import Link from "next/link";
 export default function HeroHome() {
   return (
     // Set a soft cream background
+   
     <section className="bg-[#FAF9F7]">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         {/* Hero content */}
+        
         <div className="flex justify-center">
             <Logo />
         </div>

@@ -8,6 +8,7 @@ import Features from "@/components/features";
 import Testimonials from "@/components/testimonials";
 import Logo from "@/components/ui/logo";
 import Footer from "@/components/ui/footer";
+import CinematicTransition from "@/components/ribbon";
 
 export default function Home() {
   return (

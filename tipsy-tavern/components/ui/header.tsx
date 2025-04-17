@@ -68,7 +68,7 @@ export default function Header() {
             </li>
             <li>
               <Link
-                href="/FAQ"
+                href="/faq"
                 className="btn-sm rounded bg-[#697F6A] px-10 py-[5px] text-white transition-colors hover:bg-[#4D6451]"
               >
                 FAQ
@@ -93,7 +93,7 @@ export default function Header() {
             </li>
             <li>
               <Link
-                href="/signup"
+                href="/faq"
                 className="block rounded bg-[#697F6A] px-3 py-2 text-white transition-colors hover:bg-[#4D6451]"
                 onClick={() => setMobileMenuOpen(false)}
               >
